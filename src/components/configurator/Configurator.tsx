@@ -226,71 +226,37 @@ export function Configurator() {
               <h2 className="font-display text-xl font-semibold text-bordeaux">
                 2. {t("steps.product")}
               </h2>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {productsForMode(store.mode).map((item) => {
-                  const name =
-                    locale === "fr" ? item.nameFr : item.nameEn;
-                  const note =
-                    locale === "fr" ? item.noteFr : item.noteEn;
-                  const desc =
-                    locale === "fr"
-                      ? item.descriptionFr
-                      : item.descriptionEn;
-                  const active = store.productId === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => store.setProductId(item.id)}
-                      className={`group rounded-2xl border p-2 text-left transition duration-300 ${
-                        active
-                          ? "border-bordeaux bg-cream/90 shadow-[0_12px_32px_-16px_rgba(107,30,42,0.45)] ring-1 ring-bordeaux/20"
-                          : "border-bordeaux/10 bg-cream/65 backdrop-blur-[2px] hover:-translate-y-0.5 hover:border-bordeaux/28 hover:bg-cream/85 hover:shadow-[0_10px_28px_-18px_rgba(26,18,16,0.3)]"
-                      }`}
-                    >
-                      {item.image ? (
-                        <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-cream-dark">
-                          <Image
-                            src={item.image}
-                            alt=""
-                            fill
-                            className="object-cover transition duration-500 group-hover:scale-[1.04]"
-                            sizes="(max-width:640px) 100vw, 280px"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
-                          <span
-                            className={`absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold transition ${
-                              active
-                                ? "bg-bordeaux text-cream"
-                                : "bg-cream/90 text-bordeaux/35"
-                            }`}
-                            aria-hidden
-                          >
-                            {active ? "✓" : ""}
-                          </span>
-                          <span className="absolute bottom-2.5 left-2.5 rounded-md bg-cream/95 px-2 py-1 font-display text-sm font-semibold text-bordeaux backdrop-blur-sm">
-                            {formatPrice(item.prices.simple, locale)}
-                          </span>
-                        </div>
-                      ) : null}
-                      <div className="space-y-1 px-2.5 py-3">
-                        <span className="font-display text-lg font-semibold text-ink">
+              <div className="mt-4 rounded-2xl border border-bordeaux/10 bg-cream/55 p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-[1px] sm:p-3">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+                  {productsForMode(store.mode).map((item) => {
+                    const name =
+                      locale === "fr" ? item.nameFr : item.nameEn;
+                    const active = store.productId === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => store.setProductId(item.id)}
+                        className={`flex flex-col items-start gap-0.5 rounded-xl px-3 py-2.5 text-left transition duration-200 ${
+                          active
+                            ? "bg-bordeaux text-cream shadow-sm"
+                            : "bg-cream/80 text-ink ring-1 ring-bordeaux/12 hover:bg-cream hover:ring-bordeaux/30"
+                        }`}
+                      >
+                        <span className="text-sm font-semibold leading-snug">
                           {name}
                         </span>
-                        {(desc || note) && (
-                          <p className="line-clamp-2 text-xs leading-relaxed text-ink-muted">
-                            {desc || note}
-                          </p>
-                        )}
-                        {!item.image && (
-                          <p className="pt-1 font-display text-base font-semibold text-bordeaux">
-                            {formatPrice(item.prices.simple, locale)}
-                          </p>
-                        )}
-                      </div>
-                    </button>
-                  );
-                })}
+                        <span
+                          className={`font-display text-xs font-medium ${
+                            active ? "text-cream/80" : "text-bordeaux"
+                          }`}
+                        >
+                          {formatPrice(item.prices.simple, locale)}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </section>
           )}
