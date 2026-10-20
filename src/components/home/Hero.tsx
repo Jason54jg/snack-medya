@@ -17,6 +17,14 @@ export async function Hero() {
         sizes="100vw"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-ink/25" />
+      {/* Fondu vers le fond motif cream */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-28 sm:h-36"
+        style={{
+          background:
+            "linear-gradient(to top, var(--cream) 0%, color-mix(in srgb, var(--cream) 70%, transparent) 45%, transparent 100%)",
+        }}
+      />
 
       <div className="relative mx-auto flex min-h-[88vh] max-w-6xl flex-col justify-end px-4 pb-16 pt-28 sm:px-6 sm:pb-20">
         <div className="animate-fade-up mb-3 [&_span]:bg-cream/15 [&_span]:text-cream [&_span]:ring-1 [&_span]:ring-cream/30">

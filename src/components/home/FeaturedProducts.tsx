@@ -16,40 +16,38 @@ export async function FeaturedProducts() {
         <p className="mt-2 text-ink-muted">{t("subtitle")}</p>
       </div>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {FEATURED_ITEMS.slice(0, 3).map((item) => {
           const name = locale === "fr" ? item.nameFr : item.nameEn;
           return (
             <article
               key={item.id}
-              className="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-bordeaux/8 transition hover:shadow-md"
+              className="group relative rounded-2xl border border-bordeaux/10 bg-cream/70 p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-[2px] transition duration-300 hover:-translate-y-1 hover:border-bordeaux/25 hover:bg-cream/85 hover:shadow-[0_16px_36px_-22px_rgba(107,30,42,0.35)]"
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-cream-dark">
                 {item.image && (
                   <Image
                     src={item.image}
                     alt={name}
                     fill
-                    className="object-cover transition duration-500 group-hover:scale-105"
+                    className="object-cover transition duration-500 group-hover:scale-[1.04]"
                     sizes="(max-width:768px) 100vw, 33vw"
                   />
                 )}
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-3 rounded-md bg-cream/95 px-2.5 py-1 font-display text-sm font-semibold text-bordeaux backdrop-blur-sm">
+                  {t("from")} {formatPrice(item.prices.simple, locale)}
+                </span>
               </div>
-              <div className="p-5">
+              <div className="space-y-3 px-2.5 py-4">
                 <h3 className="font-display text-xl font-semibold text-ink">
                   {name}
                 </h3>
-                <p className="mt-1 text-sm text-ink-muted">
-                  {t("from")}{" "}
-                  <span className="font-semibold text-bordeaux">
-                    {formatPrice(item.prices.simple, locale)}
-                  </span>
-                </p>
                 <ComposeProductButton
                   productId={item.id}
                   category={item.category}
                   label={`${t("configure")} →`}
-                  className="mt-4 inline-flex text-sm font-semibold text-bordeaux underline-offset-4 hover:underline"
+                  className="inline-flex items-center rounded-full border border-bordeaux/20 bg-cream/90 px-3.5 py-1.5 text-sm font-semibold text-bordeaux transition hover:border-bordeaux hover:bg-bordeaux hover:text-cream"
                 />
               </div>
             </article>

@@ -65,8 +65,8 @@ html {
 
 body {
   background-color: var(--cream);
-  /* Tuile zigzag uniquement (bande blanche du scan retirée) */
-  background-image: url("/images/bg-pattern.png");
+  /* --bg-pattern injecté depuis layout (basePath GitHub Pages) */
+  background-image: var(--bg-pattern);
   background-repeat: repeat;
   background-position: 0 0;
   background-size: 512px 28px;
