@@ -226,7 +226,7 @@ const IMG = {
   durum:
     "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=1200&q=80",
   plate:
-    "https://images.unsplash.com/photo-1599487488170-d11ec9c172f3?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&w=1200&q=80",
   burger:
     "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80",
   tacos:
@@ -238,9 +238,9 @@ const IMG = {
   dessert:
     "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=1200&q=80",
   fries:
-    "https://images.unsplash.com/photo-1573080496683-896c8709b1a9?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=1200&q=80",
   drink:
-    "https://images.unsplash.com/photo-1629203851123-36aecf6c0a58?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=1200&q=80",
   kids:
     "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1200&q=80",
   panini:
