@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "title": "Snack Medya — Kebab & Snack à Neufchâteau",
+    "description": "Snack Medya à Neufchâteau : kebabs, tacos, burgers, assiettes. Composez votre menu en ligne et commandez par téléphone ou WhatsApp.",
+    "keywords": "kebab, Neufchâteau, snack, tacos, Medya Kebab"
+  },
+  "nav": {
+    "home": "Accueil",
+    "menu": "La carte",
+    "configurator": "Composer",
+    "reviews": "Avis",
+    "contact": "Contact",
+    "order": "Commander"
+  },
+  "hero": {
+    "brand": "Snack Medya",
+    "headline": "Le kebab, élevé au rang d'art",
+    "sub": "Viande grillée, sauces maison, formules généreuses — Avenue Kennedy, Neufchâteau.",
+    "ctaCompose": "Composer mon menu",
+    "ctaMenu": "Voir la carte"
+  },
+  "featured": {
+    "title": "Nos best-sellers",
+    "subtitle": "Les classiques qui font la réputation de Medya.",
+    "from": "dès",
+    "configure": "Personnaliser"
+  },
+  "reviews": {
+    "title": "Ils en parlent",
+    "subtitle": "Avis Google mis à jour automatiquement.",
+    "rating": "{rating}/5 · {count} avis",
+    "seeAll": "Voir les {count} avis sur Google"
+  },
+  "menuPage": {
+    "title": "La carte officielle",
+    "subtitle": "Tous nos produits, fidèles au menu Snack Medya.",
+    "simple": "Simple",
+    "menu": "Menu",
+    "menuDessert": "Menu dessert",
+    "menuHint": "Menu = + frites & boisson (+1,50€ selon formule)",
+    "sizes": "Tailles",
+    "note": "Note",
+    "configure": "Composer",
+    "alcoholic": "Boissons alcoolisées",
+    "softs": "Boissons softs",
+    "beers": "Bières",
+    "wines": "Vins",
+    "misc": "Extras",
+    "tapToCompose": "Appuyez sur un article pour le composer.",
+    "selected": "Sélectionné"
+  },
+  "configurator": {
+    "title": "La carte & commande",
+    "subtitle": "Composez vos articles un par un, ajoutez-les au panier, puis voyez le prix final avant d’appeler ou d’envoyer sur WhatsApp.",
+    "steps": {
+      "category": "Catégorie",
+      "product": "Produit",
+      "formula": "Formule",
+      "size": "Taille",
+      "meat": "Viande",
+      "sauces": "Sauces",
+      "extras": "Suppléments",
+      "summary": "Récapitulatif"
+    },
+    "categories": {
+      "sandwiches": "Sandwichs",
+      "durums": "Durums",
+      "tacos": "Tacos",
+      "burgers": "Burgers",
+      "assiettes": "Assiettes",
+      "bowls": "Bowls",
+      "salades": "Salades",
+      "enfant": "Menu enfant"
+    },
+    "formulas": {
+      "simple": "Simple",
+      "menu": "Menu",
+      "menuDessert": "Menu dessert",
+      "menuHint": "Frites + boisson",
+      "dessertHint": "Frites + boisson + dessert"
+    },
+    "tacoHint": "{meats} viande(s) · {wraps} galette(s)",
+    "selectMeat": "Choisissez votre viande",
+    "selectMeats": "Choisissez {count} viande(s)",
+    "selectSauces": "Sauces (plusieurs possibles)",
+    "selectExtras": "Suppléments optionnels",
+    "kidsMeat": "Viande du menu enfant",
+    "kidsTheme": "Thème",
+    "girl": "Fille",
+    "boy": "Garçon",
+    "total": "Total",
+    "currentItem": "Prix de l’article",
+    "addToCart": "Ajouter au panier",
+    "incompleteAdd": "Terminez la composition pour ajouter",
+    "cart": "Votre panier",
+    "cartEmpty": "Aucun article pour l’instant.",
+    "clearCart": "Vider",
+    "remove": "Retirer",
+    "finalTotal": "Prix final",
+    "reset": "Recommencer l’article",
+    "call": "Appeler",
+    "whatsapp": "Commander sur WhatsApp",
+    "incomplete": "Ajoutez au moins un article au panier",
+    "next": "Suivant",
+    "back": "Retour",
+    "none": "Aucun"
+  },
+  "contact": {
+    "title": "Nous trouver",
+    "subtitle": "Passez nous voir ou commandez à emporter.",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "hours": "Horaires",
+    "closed": "Fermé",
+    "directions": "Itinéraire",
+    "call": "Appeler maintenant"
+  },
+  "footer": {
+    "tagline": "Snack Medya — kebab & snack à Neufchâteau",
+    "rights": "Tous droits réservés.",
+    "hoursShort": "Mar–Sam 11h–14h & 17h–22h · Dim 17h–22h · Fermé lundi"
+  },
+  "common": {
+    "loading": "Chargement…"
+  }
+}

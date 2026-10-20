@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "title": "Snack Medya — Kebab & Snack in Neufchâteau",
+    "description": "Snack Medya in Neufchâteau: kebabs, tacos, burgers and plates. Build your meal online and order by phone or WhatsApp.",
+    "keywords": "kebab, Neufchateau, snack, tacos, Medya Kebab"
+  },
+  "nav": {
+    "home": "Home",
+    "menu": "Menu",
+    "configurator": "Build",
+    "reviews": "Reviews",
+    "contact": "Contact",
+    "order": "Order"
+  },
+  "hero": {
+    "brand": "Snack Medya",
+    "headline": "Kebab, elevated",
+    "sub": "Grilled meat, house sauces, generous combos — Avenue Kennedy, Neufchâteau.",
+    "ctaCompose": "Build my meal",
+    "ctaMenu": "View the menu"
+  },
+  "featured": {
+    "title": "Our bestsellers",
+    "subtitle": "The classics that made Medya’s name.",
+    "from": "from",
+    "configure": "Customise"
+  },
+  "reviews": {
+    "title": "What people say",
+    "subtitle": "Google reviews, refreshed automatically.",
+    "rating": "{rating}/5 · {count} reviews",
+    "seeAll": "See all {count} reviews on Google"
+  },
+  "menuPage": {
+    "title": "Official menu",
+    "subtitle": "Every item, true to the Snack Medya menu.",
+    "simple": "Single",
+    "menu": "Meal deal",
+    "menuDessert": "Meal + dessert",
+    "menuHint": "Meal deal = fries & drink (pricing as listed)",
+    "sizes": "Sizes",
+    "note": "Note",
+    "configure": "Build",
+    "alcoholic": "Alcoholic drinks",
+    "softs": "Soft drinks",
+    "beers": "Beers",
+    "wines": "Wines",
+    "misc": "Extras",
+    "tapToCompose": "Tap an item to customise it.",
+    "selected": "Selected"
+  },
+  "configurator": {
+    "title": "Menu & order",
+    "subtitle": "Build items one by one, add them to your cart, then see the final price before calling or sending on WhatsApp.",
+    "steps": {
+      "category": "Category",
+      "product": "Product",
+      "formula": "Deal",
+      "size": "Size",
+      "meat": "Meat",
+      "sauces": "Sauces",
+      "extras": "Extras",
+      "summary": "Summary"
+    },
+    "categories": {
+      "sandwiches": "Sandwiches",
+      "durums": "Durums",
+      "tacos": "Tacos",
+      "burgers": "Burgers",
+      "assiettes": "Plates",
+      "bowls": "Bowls",
+      "salades": "Salads",
+      "enfant": "Kids menu"
+    },
+    "formulas": {
+      "simple": "Single",
+      "menu": "Meal deal",
+      "menuDessert": "Meal + dessert",
+      "menuHint": "Fries + drink",
+      "dessertHint": "Fries + drink + dessert"
+    },
+    "tacoHint": "{meats} meat(s) · {wraps} wrap(s)",
+    "selectMeat": "Choose your meat",
+    "selectMeats": "Choose {count} meat(s)",
+    "selectSauces": "Sauces (multiple allowed)",
+    "selectExtras": "Optional extras",
+    "kidsMeat": "Kids menu meat",
+    "kidsTheme": "Theme",
+    "girl": "Girl",
+    "boy": "Boy",
+    "total": "Total",
+    "currentItem": "Item price",
+    "addToCart": "Add to cart",
+    "incompleteAdd": "Finish building this item to add it",
+    "cart": "Your cart",
+    "cartEmpty": "No items yet.",
+    "clearCart": "Clear",
+    "remove": "Remove",
+    "finalTotal": "Final price",
+    "reset": "Reset this item",
+    "call": "Call",
+    "whatsapp": "Order on WhatsApp",
+    "incomplete": "Add at least one item to the cart",
+    "next": "Next",
+    "back": "Back",
+    "none": "None"
+  },
+  "contact": {
+    "title": "Find us",
+    "subtitle": "Drop by or order takeaway.",
+    "address": "Address",
+    "phone": "Phone",
+    "hours": "Opening hours",
+    "closed": "Closed",
+    "directions": "Directions",
+    "call": "Call now"
+  },
+  "footer": {
+    "tagline": "Snack Medya — kebab & snack in Neufchâteau",
+    "rights": "All rights reserved.",
+    "hoursShort": "Tue–Sat 11am–2pm & 5–10pm · Sun 5–10pm · Closed Monday"
+  },
+  "common": {
+    "loading": "Loading…"
+  }
+}

@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+:root {
+  --bordeaux: #6b1e2a;
+  --bordeaux-light: #8b2e3a;
+  --bordeaux-dark: #4a1420;
+  --cream: #f7f4ef;
+  --cream-dark: #ebe4da;
+  --ink: #1a1210;
+  --ink-muted: #5c4f4a;
+  --green: #4a7c59;
+  --green-soft: #6bae6b;
+  --gold: #a67c52;
+  --white: #ffffff;
+  --background: var(--cream);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-bordeaux: var(--bordeaux);
+  --color-bordeaux-light: var(--bordeaux-light);
+  --color-bordeaux-dark: var(--bordeaux-dark);
+  --color-cream: var(--cream);
+  --color-cream-dark: var(--cream-dark);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-green: var(--green);
+  --color-green-soft: var(--green-soft);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-fraunces);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bordeaux) var(--cream-dark);
+}
+
+/* Scrollbar Chrome / Edge / Safari */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bordeaux);
+  border-radius: 999px;
+  border: 2px solid var(--cream-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bordeaux-light);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--cream-dark);
+}
+
+body {
+  background-color: var(--cream);
+  /* Tuile zigzag uniquement (bande blanche du scan retirée) */
+  background-image: url("/images/bg-pattern.png");
+  background-repeat: repeat;
+  background-position: 0 0;
+  background-size: 512px 28px;
+  color: var(--foreground);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+}
+
+/* Pas de 2e fond — évite les rayures / double motif */
+.bg-lattice {
+  background: transparent;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.duration-400 {
+  transition-duration: 400ms;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease-out both;
+}
+
+.animate-fade-up-delay {
+  animation: fade-up 0.8s ease-out 0.15s both;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fade-up 0.8s ease-out 0.3s both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay,
+  .animate-fade-up-delay-2,
+  .animate-fade-in {
+    animation: none;
+  }
+}
+
+/* Skip link visible au focus clavier */
+.sr-only:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
