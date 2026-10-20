@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import {
   ALL_TIER_ITEMS,
