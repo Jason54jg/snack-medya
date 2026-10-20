@@ -82,7 +82,7 @@
     "tacoHint": "{meats} meat(s) · {wraps} wrap(s)",
     "selectMeat": "Choose your meat",
     "selectMeats": "Choose {count} meat(s)",
-    "selectSauces": "Sauces (multiple allowed)",
+    "selectSauces": "Choose up to 2 sauces",
     "selectExtras": "Optional extras",
     "kidsMeat": "Kids menu meat",
     "kidsTheme": "Theme",

@@ -82,7 +82,7 @@
     "tacoHint": "{meats} viande(s) · {wraps} galette(s)",
     "selectMeat": "Choisissez votre viande",
     "selectMeats": "Choisissez {count} viande(s)",
-    "selectSauces": "Sauces (plusieurs possibles)",
+    "selectSauces": "Choisissez jusqu’à 2 sauces",
     "selectExtras": "Suppléments optionnels",
     "kidsMeat": "Viande du menu enfant",
     "kidsTheme": "Thème",

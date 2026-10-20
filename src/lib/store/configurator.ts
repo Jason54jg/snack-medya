@@ -110,11 +110,12 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
 
     toggleSauce: (id) => {
       const { sauces } = get();
-      set({
-        sauces: sauces.includes(id)
-          ? sauces.filter((s) => s !== id)
-          : [...sauces, id],
-      });
+      if (sauces.includes(id)) {
+        set({ sauces: sauces.filter((s) => s !== id) });
+        return;
+      }
+      if (sauces.length >= 2) return;
+      set({ sauces: [...sauces, id] });
     },
 
     toggleExtra: (id) => {
