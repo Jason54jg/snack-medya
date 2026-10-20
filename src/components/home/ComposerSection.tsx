@@ -1,11 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Configurator } from "@/components/configurator/Configurator";
 
-type Props = {
-  initialProductId?: string;
-};
-
-export async function ComposerSection({ initialProductId }: Props) {
+export async function ComposerSection() {
   const t = await getTranslations("configurator");
 
   return (
@@ -20,7 +16,7 @@ export async function ComposerSection({ initialProductId }: Props) {
         <p className="mt-3 text-ink-muted">{t("subtitle")}</p>
       </header>
       <div className="mt-10">
-        <Configurator initialProductId={initialProductId} />
+        <Configurator />
       </div>
     </div>
   );

@@ -18,7 +18,13 @@ export function ReviewsCarousel({ initialData }: Props) {
 
     async function refresh() {
       try {
-        const res = await fetch("/api/reviews", { cache: "no-store" });
+        // Sur serveur (Vercel etc.) : /api/reviews. Sur GitHub Pages : fallback SSR.
+        const base =
+          typeof window !== "undefined" &&
+          window.location.pathname.startsWith("/snack-medya")
+            ? "/snack-medya"
+            : "";
+        const res = await fetch(`${base}/api/reviews`, { cache: "no-store" });
         if (!res.ok) return;
         const json = (await res.json()) as ReviewsPayload;
         if (!cancelled && json.reviews?.length) {

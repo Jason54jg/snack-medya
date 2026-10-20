@@ -74,18 +74,16 @@ function extrasForMode(mode: ConfigMode) {
   );
 }
 
-type Props = {
-  initialProductId?: string;
-};
-
-export function Configurator({ initialProductId }: Props) {
+export function Configurator() {
   const t = useTranslations("configurator");
   const locale = useLocale() as "fr" | "en";
   const store = useConfiguratorStore();
 
   useEffect(() => {
-    if (!initialProductId) return;
-    const item = getItemById(initialProductId);
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("product");
+    if (!productId) return;
+    const item = getItemById(productId);
     if (!item) return;
     const mode = item.category as ConfigMode;
     if (
@@ -96,12 +94,10 @@ export function Configurator({ initialProductId }: Props) {
       mode === "bowls" ||
       mode === "salades"
     ) {
-      store.setMode(mode);
-      store.setProductId(item.id);
-      store.setStep(2);
+      store.selectFromCatalog(mode, item.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialProductId]);
+  }, []);
 
   const total = useMemo(
     () =>

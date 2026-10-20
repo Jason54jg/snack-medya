@@ -38,8 +38,19 @@ Les visuels actuels sont des photos stock (Unsplash). Remplacez les URLs dans `s
 
 ## Avis Google (mise à jour auto)
 
-Les avis sont récupérés via `/api/reviews` (cache 1 h) :
+Les avis sont récupérés via `/api/reviews` (cache 1 h) — **la route est conservée** pour un hébergement serveur :
 1. **Google Places API** si `GOOGLE_MAPS_API_KEY` est défini (voir `.env.example`)
 2. Sinon : note + volume via agrégateur Rankeat + textes d’avis publics
 
-Le carrousel affiche les avis récupérés et le total réel (ex. 246), avec lien « Voir tous les avis sur Google ».
+Sur GitHub Pages (export statique temporaire), les avis sont figés au moment du build ; le client garde le fallback SSR si `/api/reviews` est indisponible.
+
+## Déploiement GitHub Pages (temporaire)
+
+Workflow : `.github/workflows/deploy-pages.yml`
+
+1. Repo → **Settings → Pages → Source: GitHub Actions**
+2. Push sur `main` (ou lancer le workflow manuellement)
+3. Site : https://jason54jg.github.io/snack-medya/
+
+`npm run build:pages` génère `out/` en local.  
+La route `src/app/api/reviews` **n’est pas supprimée** : elle est seulement mise de côté pendant l’export statique, puis restaurée. Sur un hébergement Node (Vercel, etc.) elle fonctionne normalement.

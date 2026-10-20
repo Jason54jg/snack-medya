@@ -8,13 +8,11 @@ import { HashScroll } from "@/components/ui/HashScroll";
 
 type Props = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ product?: string }>;
 };
 
-export default async function HomePage({ params, searchParams }: Props) {
+export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const { product } = await searchParams;
 
   return (
     <>
@@ -26,7 +24,7 @@ export default async function HomePage({ params, searchParams }: Props) {
         <FeaturedProducts />
       </section>
       <section id="menu" className="scroll-mt-20">
-        <ComposerSection initialProductId={product} />
+        <ComposerSection />
       </section>
       <section id="avis" className="scroll-mt-20">
         <ReviewsSection />
