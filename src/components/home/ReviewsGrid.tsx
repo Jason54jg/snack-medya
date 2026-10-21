@@ -8,10 +8,9 @@ type Props = {
   initialData: ReviewsPayload;
 };
 
-export function ReviewsCarousel({ initialData }: Props) {
+export function ReviewsGrid({ initialData }: Props) {
   const t = useTranslations("reviews");
   const [data, setData] = useState(initialData);
-  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -27,7 +26,6 @@ export function ReviewsCarousel({ initialData }: Props) {
         const json = (await res.json()) as ReviewsPayload;
         if (!cancelled && json.reviews?.length) {
           setData(json);
-          setIndex(0);
         }
       } catch {
         /* keep SSR payload */
@@ -43,23 +41,11 @@ export function ReviewsCarousel({ initialData }: Props) {
   }, []);
 
   const reviews = data.reviews;
-  const safeIndex = reviews.length ? index % reviews.length : 0;
-
-  useEffect(() => {
-    if (reviews.length < 2) return;
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % reviews.length);
-    }, 5000);
-    return () => clearInterval(id);
-  }, [reviews.length]);
-
   if (!reviews.length) return null;
-
-  const review: LiveReview = reviews[safeIndex];
 
   return (
     <section className="py-16 sm:py-20">
-      <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
         <h2 className="font-display text-3xl font-semibold text-bordeaux sm:text-4xl">
           {t("title")}
         </h2>
@@ -71,45 +57,32 @@ export function ReviewsCarousel({ initialData }: Props) {
           })}
         </p>
 
-        <blockquote
-          key={review.id}
-          className="animate-fade-in mt-10 rounded-2xl bg-white/80 px-6 py-8 ring-1 ring-bordeaux/8 backdrop-blur-sm"
-        >
-          {review.rating > 0 && (
-            <div
-              className="flex justify-center gap-0.5 text-bordeaux"
-              aria-label={`${review.rating} / 5`}
-            >
-              {Array.from({ length: 5 }).map((_, i) => (
-                <span key={i} className="text-lg">
-                  {i < review.rating ? "★" : "☆"}
-                </span>
-              ))}
-            </div>
-          )}
-          <p className="mt-4 font-display text-lg leading-relaxed text-ink sm:text-xl">
-            “{review.text}”
-          </p>
-          <footer className="mt-4 text-sm font-medium text-ink-muted">
-            {review.author}
-            {review.relativeTime ? ` · ${review.relativeTime}` : ""} ·{" "}
-            {review.source}
-          </footer>
-        </blockquote>
-
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {reviews.map((r, i) => (
-            <button
-              key={r.id}
-              type="button"
-              aria-label={t("dot", { n: i + 1 })}
-              onClick={() => setIndex(i)}
-              className={`h-2 w-2 rounded-full transition ${
-                i === safeIndex ? "scale-125 bg-bordeaux" : "bg-bordeaux/25"
-              }`}
-            />
+        <ul className="mt-10 grid gap-5 text-left md:grid-cols-3">
+          {reviews.map((review: LiveReview) => (
+            <li key={review.id}>
+              <blockquote className="flex h-full flex-col rounded-2xl bg-white/80 px-6 py-7 ring-1 ring-bordeaux/8 backdrop-blur-sm">
+                <div
+                  className="flex gap-0.5 text-bordeaux"
+                  aria-label={`${review.rating} / 5`}
+                >
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i} className="text-lg" aria-hidden>
+                      {i < review.rating ? "★" : "☆"}
+                    </span>
+                  ))}
+                </div>
+                <p className="mt-4 flex-1 font-display text-base leading-relaxed text-ink sm:text-lg">
+                  “{review.text}”
+                </p>
+                <footer className="mt-4 text-sm font-medium text-ink-muted">
+                  {review.author}
+                  {review.relativeTime ? ` · ${review.relativeTime}` : ""} ·{" "}
+                  {review.source}
+                </footer>
+              </blockquote>
+            </li>
           ))}
-        </div>
+        </ul>
 
         <a
           href={data.mapsUrl}

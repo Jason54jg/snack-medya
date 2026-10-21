@@ -10,6 +10,27 @@ const MAPS_URL =
 
 const REVALIDATE = 60 * 60; // 1 h
 const FETCH_TIMEOUT_MS = 8_000;
+const DISPLAYED_REVIEWS = 3;
+
+/**
+ * Les 3 meilleurs avis les plus récents : 5★ d'abord, complétés par des 4★.
+ * Sans date (sources publiques), on garde l'ordre de la source.
+ */
+function pickTopRecent(reviews: LiveReview[]): LiveReview[] {
+  const byDateDesc = reviews
+    .map((r, i) => ({ r, i, t: r.publishedAt ? Date.parse(r.publishedAt) : NaN }))
+    .sort((a, b) => {
+      const ta = Number.isFinite(a.t) ? a.t : -Infinity;
+      const tb = Number.isFinite(b.t) ? b.t : -Infinity;
+      return tb - ta || a.i - b.i;
+    })
+    .map(({ r }) => r);
+
+  return [
+    ...byDateDesc.filter((r) => r.rating === 5),
+    ...byDateDesc.filter((r) => r.rating === 4),
+  ].slice(0, DISPLAYED_REVIEWS);
+}
 
 function fetchOpts(init: RequestInit = {}): RequestInit {
   return {
@@ -40,7 +61,7 @@ async function fetchFromGooglePlaces(): Promise<ReviewsPayload | null> {
     if (!res.ok) {
       // Legacy Place Details fallback
       const legacy = await fetch(
-        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=name,rating,user_ratings_total,reviews,url&language=fr&key=${key}`,
+        `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=name,rating,user_ratings_total,reviews,url&reviews_sort=newest&language=fr&key=${key}`,
         fetchOpts(),
       );
       if (!legacy.ok) return null;
@@ -63,6 +84,7 @@ async function fetchFromGooglePlaces(): Promise<ReviewsPayload | null> {
           rating: r.rating,
           text: r.text,
           relativeTime: r.relative_time_description,
+          publishedAt: r.time ? new Date(r.time * 1000).toISOString() : undefined,
           source: "Google" as const,
         }),
       );
@@ -87,6 +109,7 @@ async function fetchFromGooglePlaces(): Promise<ReviewsPayload | null> {
           rating?: number;
           text?: { text?: string };
           relativePublishTimeDescription?: string;
+          publishTime?: string;
         },
         i: number,
       ) => ({
@@ -95,6 +118,7 @@ async function fetchFromGooglePlaces(): Promise<ReviewsPayload | null> {
         rating: r.rating ?? 5,
         text: r.text?.text ?? "",
         relativeTime: r.relativePublishTimeDescription,
+        publishedAt: r.publishTime,
         source: "Google" as const,
       }),
     );
@@ -277,6 +301,15 @@ async function fetchPublicReviewTexts(): Promise<LiveReview[] | null> {
 }
 
 export async function getReviews(): Promise<ReviewsPayload> {
+  const payload = await collectReviews();
+  const top = pickTopRecent(payload.reviews);
+  return {
+    ...payload,
+    reviews: top.length ? top : pickTopRecent(FALLBACK_REVIEWS.reviews),
+  };
+}
+
+async function collectReviews(): Promise<ReviewsPayload> {
   const [fromGoogle, meta, texts] = await Promise.all([
     fetchFromGooglePlaces(),
     fetchFromAggregator(),

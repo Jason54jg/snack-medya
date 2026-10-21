@@ -3,6 +3,9 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main]
+  # Rebuild quotidien : le site est statique, c'est ce qui rafraîchit les avis Google
+  schedule:
+    - cron: "0 5 * * *"
   workflow_dispatch:
 
 permissions:
@@ -34,6 +37,8 @@ jobs:
         run: npm run build:pages
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
+          # Optionnel : note, nombre et dates des avis en direct (Places API)
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

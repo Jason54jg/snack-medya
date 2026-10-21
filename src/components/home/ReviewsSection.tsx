@@ -1,7 +1,7 @@
 import { getReviews } from "@/lib/reviews/fetchReviews";
-import { ReviewsCarousel } from "./ReviewsCarousel";
+import { ReviewsGrid } from "./ReviewsGrid";
 
 export async function ReviewsSection() {
   const data = await getReviews();
-  return <ReviewsCarousel initialData={data} />;
+  return <ReviewsGrid initialData={data} />;
 }

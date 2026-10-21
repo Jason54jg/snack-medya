@@ -4,6 +4,8 @@ export type LiveReview = {
   rating: number;
   text: string;
   relativeTime?: string;
+  /** Date ISO de publication, quand la source la fournit (Google Places) */
+  publishedAt?: string;
   source: "Google";
 };
 
