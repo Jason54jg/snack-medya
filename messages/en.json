@@ -29,7 +29,8 @@
     "title": "What people say",
     "subtitle": "Google reviews, refreshed automatically.",
     "rating": "{rating}/5 · {count} reviews",
-    "seeAll": "See all {count} reviews on Google"
+    "seeAll": "See all {count} reviews on Google",
+    "dot": "Review {n}"
   },
   "menuPage": {
     "title": "Official menu",
@@ -118,9 +119,18 @@
   "footer": {
     "tagline": "Snack Medya — kebab & snack in Neufchâteau",
     "rights": "All rights reserved.",
-    "hoursShort": "Tue–Sat 11am–2pm & 5–10pm · Sun 5–10pm · Closed Monday"
+    "hoursShort": "Tue–Sat 11am–2pm & 5–10pm · Sun 5–10pm · Closed Monday",
+    "contactHeading": "Contact",
+    "linksHeading": "Links"
   },
   "common": {
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "skipToMenu": "Skip to menu",
+    "backToTop": "Back to top",
+    "mapTitle": "Snack Medya — map"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "back": "Back to home"
   }
 }

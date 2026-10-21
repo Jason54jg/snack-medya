@@ -166,6 +166,49 @@ async function fetchFromAggregator(): Promise<Partial<ReviewsPayload> | null> {
   }
 }
 
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+  nbsp: " ",
+  rsquo: "’",
+  lsquo: "‘",
+  rdquo: "”",
+  ldquo: "“",
+  hellip: "…",
+  eacute: "é",
+  egrave: "è",
+  ecirc: "ê",
+  agrave: "à",
+  acirc: "â",
+  ccedil: "ç",
+  ocirc: "ô",
+  ugrave: "ù",
+  icirc: "î",
+};
+
+/** Texte brut HTML → texte (balises retirées, entités décodées) */
+function htmlToText(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (match, code: string) => {
+      if (code[0] === "#") {
+        const n =
+          code[1] === "x" || code[1] === "X"
+            ? parseInt(code.slice(2), 16)
+            : parseInt(code.slice(1), 10);
+        return Number.isFinite(n) && n > 0 && n <= 0x10ffff
+          ? String.fromCodePoint(n)
+          : match;
+      }
+      return NAMED_ENTITIES[code.toLowerCase()] ?? match;
+    })
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 /** Avis individuels depuis une fiche publique (sans clé Google) */
 async function fetchPublicReviewTexts(): Promise<LiveReview[] | null> {
   try {
@@ -196,7 +239,7 @@ async function fetchPublicReviewTexts(): Promise<LiveReview[] | null> {
     for (const part of parts) {
       const authorMatch = part.match(/^([\s\S]*?)<\/h[2-5]>/i);
       if (!authorMatch) continue;
-      const author = authorMatch[1].replace(/<[^>]+>/g, "").trim();
+      const author = htmlToText(authorMatch[1]);
       if (
         !author ||
         /Avis de Snack|Emplacement|Contact|Liens|Catégories|Location/i.test(
@@ -207,16 +250,13 @@ async function fetchPublicReviewTexts(): Promise<LiveReview[] | null> {
       }
 
       const after = part.slice(authorMatch[0].length);
-      const head = after.slice(0, 200).replace(/<[^>]+>/g, " ");
+      const head = htmlToText(after.slice(0, 200));
       const ratingMatch = head.match(/\b([1-5])\s*\/\s*5\b/);
       // Sans note explicite : on n’invente pas (affiche 0 étoile → masqué côté UI si besoin)
       const rating = ratingMatch ? parseInt(ratingMatch[1], 10) : 0;
 
       const pMatch = after.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
-      const text = (pMatch?.[1] ?? "")
-        .replace(/<[^>]+>/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
+      const text = htmlToText(pMatch?.[1] ?? "");
 
       if (text.length < 15) continue;
 

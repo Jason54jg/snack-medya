@@ -16,14 +16,12 @@ export function ReviewsCarousel({ initialData }: Props) {
   useEffect(() => {
     let cancelled = false;
 
+    // Export statique (GitHub Pages) : pas de route /api, on garde le payload du build
+    if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "true") return;
+
     async function refresh() {
       try {
-        // Sur serveur (Vercel etc.) : /api/reviews. Sur GitHub Pages : fallback SSR.
-        const base =
-          typeof window !== "undefined" &&
-          window.location.pathname.startsWith("/snack-medya")
-            ? "/snack-medya"
-            : "";
+        const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
         const res = await fetch(`${base}/api/reviews`, { cache: "no-store" });
         if (!res.ok) return;
         const json = (await res.json()) as ReviewsPayload;
@@ -104,7 +102,7 @@ export function ReviewsCarousel({ initialData }: Props) {
             <button
               key={r.id}
               type="button"
-              aria-label={`Avis ${i + 1}`}
+              aria-label={t("dot", { n: i + 1 })}
               onClick={() => setIndex(i)}
               className={`h-2 w-2 rounded-full transition ${
                 i === safeIndex ? "scale-125 bg-bordeaux" : "bg-bordeaux/25"

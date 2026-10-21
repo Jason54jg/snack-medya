@@ -84,19 +84,43 @@ export type OpenStatus = {
   labelEn: string;
 };
 
+const DAY_NAMES_FR = [
+  "dimanche",
+  "lundi",
+  "mardi",
+  "mercredi",
+  "jeudi",
+  "vendredi",
+  "samedi",
+];
+const DAY_NAMES_EN = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+/** Prochain créneau d'ouverture à partir d'aujourd'hui (offset 0) ou des jours suivants */
+function nextOpening(day: number, minutes: number) {
+  for (let offset = 0; offset < 7; offset++) {
+    const d = (day + offset) % 7;
+    const slots = WEEKLY_HOURS.find((s) => s.day === d)?.slots ?? [];
+    const slot = slots.find(
+      (s) => offset > 0 || minutes < toMinutes(s.open),
+    );
+    if (slot) return { offset, day: d, open: slot.open };
+  }
+  return null;
+}
+
 export function getOpenStatus(now = new Date()): OpenStatus {
   const { day, minutes } = parisParts(now);
   const schedule = WEEKLY_HOURS.find((d) => d.day === day);
 
-  if (!schedule || schedule.slots.length === 0) {
-    return {
-      isOpen: false,
-      labelFr: "Fermé · rouverture mardi",
-      labelEn: "Closed · opens Tuesday",
-    };
-  }
-
-  for (const slot of schedule.slots) {
+  for (const slot of schedule?.slots ?? []) {
     const open = toMinutes(slot.open);
     const close = toMinutes(slot.close);
     if (minutes >= open && minutes < close) {
@@ -108,18 +132,29 @@ export function getOpenStatus(now = new Date()): OpenStatus {
     }
   }
 
-  const next = schedule.slots.find((s) => minutes < toMinutes(s.open));
-  if (next) {
+  const next = nextOpening(day, minutes);
+  if (!next) {
+    return { isOpen: false, labelFr: "Fermé", labelEn: "Closed" };
+  }
+
+  const hourFr = next.open.replace(":", "h");
+  if (next.offset === 0) {
     return {
       isOpen: false,
-      labelFr: `Fermé · ouvre à ${next.open.replace(":", "h")}`,
+      labelFr: `Fermé · ouvre à ${hourFr}`,
       labelEn: `Closed · opens at ${next.open}`,
     };
   }
-
+  if (next.offset === 1) {
+    return {
+      isOpen: false,
+      labelFr: `Fermé · ouvre demain à ${hourFr}`,
+      labelEn: `Closed · opens tomorrow at ${next.open}`,
+    };
+  }
   return {
     isOpen: false,
-    labelFr: "Fermé",
-    labelEn: "Closed",
+    labelFr: `Fermé · rouvre ${DAY_NAMES_FR[next.day]} à ${hourFr}`,
+    labelEn: `Closed · opens ${DAY_NAMES_EN[next.day]} at ${next.open}`,
   };
 }

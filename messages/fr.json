@@ -29,7 +29,8 @@
     "title": "Ils en parlent",
     "subtitle": "Avis Google mis à jour automatiquement.",
     "rating": "{rating}/5 · {count} avis",
-    "seeAll": "Voir les {count} avis sur Google"
+    "seeAll": "Voir les {count} avis sur Google",
+    "dot": "Avis {n}"
   },
   "menuPage": {
     "title": "La carte officielle",
@@ -118,9 +119,18 @@
   "footer": {
     "tagline": "Snack Medya — kebab & snack à Neufchâteau",
     "rights": "Tous droits réservés.",
-    "hoursShort": "Mar–Sam 11h–14h & 17h–22h · Dim 17h–22h · Fermé lundi"
+    "hoursShort": "Mar–Sam 11h–14h & 17h–22h · Dim 17h–22h · Fermé lundi",
+    "contactHeading": "Contact",
+    "linksHeading": "Liens"
   },
   "common": {
-    "loading": "Chargement…"
+    "loading": "Chargement…",
+    "skipToMenu": "Aller à la carte",
+    "backToTop": "Retour en haut",
+    "mapTitle": "Snack Medya — carte"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "back": "Retour à l'accueil"
   }
 }

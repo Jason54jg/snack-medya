@@ -4,10 +4,9 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { ConfiguratorState } from "@/lib/store/configurator";
 
+/** Libellés recalculés à l'affichage (cartItemLabel) pour suivre la langue active */
 export type CartLine = {
   id: string;
-  title: string;
-  detail: string;
   price: number;
   config: ConfiguratorState;
 };
@@ -43,6 +42,7 @@ export const useCartStore = create<CartState>()(
           get().lines.reduce((sum, l) => sum + l.price, 0) * 100,
         ) / 100,
     }),
-    { name: "snack-medya-cart" },
+    // Réhydraté côté client après le montage (évite le décalage SSR / localStorage)
+    { name: "snack-medya-cart", skipHydration: true },
   ),
 );

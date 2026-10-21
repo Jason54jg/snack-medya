@@ -23,7 +23,7 @@ export async function Footer() {
         </div>
         <div>
           <p className="text-sm font-semibold uppercase tracking-wider text-cream/60">
-            Contact
+            {t("contactHeading")}
           </p>
           <p className="mt-2 text-sm">{restaurant.address.full}</p>
           <a
@@ -35,7 +35,7 @@ export async function Footer() {
         </div>
         <div>
           <p className="text-sm font-semibold uppercase tracking-wider text-cream/60">
-            Links
+            {t("linksHeading")}
           </p>
           <ul className="mt-2 space-y-1 text-sm">
             {links.map((l) => (

@@ -8,6 +8,10 @@ const isGithubPages = process.env.GITHUB_PAGES === "true";
 const repoName = process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "snack-medya";
 
 const nextConfig: NextConfig = {
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isGithubPages ? `/${repoName}` : "",
+    NEXT_PUBLIC_STATIC_EXPORT: isGithubPages ? "true" : "false",
+  },
   ...(isGithubPages
     ? {
         output: "export" as const,

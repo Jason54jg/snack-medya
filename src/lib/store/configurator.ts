@@ -73,7 +73,8 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
         step: 1,
       }),
 
-    setProductId: (id) => set({ productId: id }),
+    // Les viandes dépendent du produit (panini, salade…) : on repart de zéro
+    setProductId: (id) => set({ productId: id, meats: [] }),
 
     selectFromCatalog: (mode, productId) =>
       set({

@@ -23,10 +23,9 @@ export function buildCartOrderMessage(
   linesOut.push("");
 
   lines.forEach((line, i) => {
-    linesOut.push(
-      `${i + 1}. ${line.title} — ${formatPrice(line.price, locale)}`,
-    );
-    if (line.detail) linesOut.push(`   ${line.detail}`);
+    const { title, detail } = cartItemLabel(line.config, locale);
+    linesOut.push(`${i + 1}. ${title} — ${formatPrice(line.price, locale)}`);
+    if (detail) linesOut.push(`   ${detail}`);
   });
 
   linesOut.push("");
@@ -51,10 +50,8 @@ export function buildOrderMessage(
   state: ConfiguratorState,
   locale: "fr" | "en",
 ): string {
-  const { title, detail } = cartItemLabel(state, locale);
-  const price = calculateTotal(state);
   return buildCartOrderMessage(
-    [{ id: "1", title, detail, price, config: state }],
+    [{ id: "1", price: calculateTotal(state), config: state }],
     locale,
   );
 }
@@ -65,13 +62,7 @@ export function whatsappOrderUrl(
 ): string {
   return whatsappCartUrl(
     [
-      {
-        id: "1",
-        title: cartItemLabel(state, locale).title,
-        detail: cartItemLabel(state, locale).detail,
-        price: calculateTotal(state),
-        config: state,
-      },
+      { id: "1", price: calculateTotal(state), config: state },
     ],
     locale,
   );

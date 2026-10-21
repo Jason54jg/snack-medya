@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export function BackToTop() {
+  const t = useTranslations("common");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export function BackToTop() {
         window.scrollTo({ top: 0, behavior: "smooth" })
       }
       className="fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-bordeaux text-cream shadow-lg transition hover:bg-bordeaux-light"
-      aria-label="Retour en haut"
+      aria-label={t("backToTop")}
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
         <path

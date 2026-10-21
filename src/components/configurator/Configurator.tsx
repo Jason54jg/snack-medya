@@ -99,22 +99,11 @@ export function Configurator() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const total = useMemo(
-    () =>
-      calculateTotal({
-        mode: store.mode,
-        productId: store.productId,
-        formula: store.formula,
-        tacoSize: store.tacoSize,
-        meats: store.meats,
-        sauces: store.sauces,
-        extras: store.extras,
-        kidsTheme: store.kidsTheme,
-        kidsMeat: store.kidsMeat,
-        step: store.step,
-      }),
-    [store],
-  );
+  useEffect(() => {
+    useCartStore.persist.rehydrate();
+  }, []);
+
+  const total = calculateTotal(store);
 
   const complete = store.isComplete();
   const maxMeats = store.maxMeats();
@@ -130,22 +119,8 @@ export function Configurator() {
 
   const addToCart = () => {
     if (!store.isComplete()) return;
-    const snap = snapshotConfig({
-      mode: store.mode,
-      productId: store.productId,
-      formula: store.formula,
-      tacoSize: store.tacoSize,
-      meats: store.meats,
-      sauces: store.sauces,
-      extras: store.extras,
-      kidsTheme: store.kidsTheme,
-      kidsMeat: store.kidsMeat,
-      step: store.step,
-    });
-    const { title, detail } = cartItemLabel(snap, locale);
+    const snap = snapshotConfig(store);
     addLine({
-      title,
-      detail,
       price: calculateTotal(snap),
       config: snap,
     });
@@ -526,36 +501,39 @@ export function Configurator() {
             <p className="mt-4 text-sm text-cream/70">{t("cartEmpty")}</p>
           ) : (
             <ul className="mt-4 max-h-56 space-y-3 overflow-y-auto pr-1">
-              {cartLines.map((line) => (
-                <li
-                  key={line.id}
-                  className="rounded-xl bg-cream/10 px-3 py-2"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold">
-                        {line.title}
-                      </p>
-                      {line.detail && (
-                        <p className="mt-0.5 line-clamp-2 text-xs text-cream/65">
-                          {line.detail}
+              {cartLines.map((line) => {
+                const { title, detail } = cartItemLabel(line.config, locale);
+                return (
+                  <li
+                    key={line.id}
+                    className="rounded-xl bg-cream/10 px-3 py-2"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold">
+                          {title}
                         </p>
-                      )}
+                        {detail && (
+                          <p className="mt-0.5 line-clamp-2 text-xs text-cream/65">
+                            {detail}
+                          </p>
+                        )}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeLine(line.id)}
+                        className="shrink-0 text-xs text-cream/70 hover:text-cream"
+                        aria-label={t("remove")}
+                      >
+                        ✕
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => removeLine(line.id)}
-                      className="shrink-0 text-xs text-cream/70 hover:text-cream"
-                      aria-label={t("remove")}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                  <p className="mt-1 text-sm font-medium">
-                    {formatPrice(line.price, locale)}
-                  </p>
-                </li>
-              ))}
+                    <p className="mt-1 text-sm font-medium">
+                      {formatPrice(line.price, locale)}
+                    </p>
+                  </li>
+                );
+              })}
             </ul>
           )}
 
