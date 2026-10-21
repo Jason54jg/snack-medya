@@ -2,11 +2,15 @@ import { FALLBACK_REVIEWS } from "./fallback";
 import type { LiveReview, ReviewsPayload } from "./types";
 
 const PLACE_ID =
-  process.env.GOOGLE_PLACE_ID ?? "ChIJZ1r8tGJp5UcRoLdLrz8FSd0";
+  process.env.GOOGLE_PLACE_ID ?? "ChIJJUEoD0Gz7EcRunIOtLfN6Sg";
+
+/** Identifiant interne Google Maps de la fiche (sert à repérer le bon résultat) */
+const MAPS_FEATURE_ID = "0x47ecb3410f284125:0x28e9cdb7b40e72ba";
+const MAPS_QUERY = "Snack Medya 23 Avenue Kennedy 88300 Neufchâteau";
 
 const MAPS_URL =
   process.env.GOOGLE_MAPS_URL ??
-  "https://www.google.com/maps/search/?api=1&query=Snack+Medya+23+Avenue+Kennedy+Neufchateau";
+  "https://www.google.com/maps/search/?api=1&query=Snack+Medya+Neufch%C3%A2teau&query_place_id=ChIJJUEoD0Gz7EcRunIOtLfN6Sg";
 
 const REVALIDATE = 60 * 60; // 1 h
 const FETCH_TIMEOUT_MS = 8_000;
@@ -130,6 +134,52 @@ async function fetchFromGooglePlaces(): Promise<ReviewsPayload | null> {
       mapsUrl: data.googleMapsUri ?? MAPS_URL,
       fetchedAt: new Date().toISOString(),
       source: "google-places",
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Note + nombre d'avis en direct depuis la recherche publique Google Maps (sans clé API).
+ * Format interne non documenté : en cas de changement, on retombe sur l'agrégateur.
+ */
+async function fetchFromGoogleMapsPublic(): Promise<Partial<ReviewsPayload> | null> {
+  try {
+    const res = await fetch(
+      `https://www.google.com/search?tbm=map&hl=fr&gl=fr&q=${encodeURIComponent(MAPS_QUERY)}`,
+      fetchOpts({
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+          "Accept-Language": "fr-FR,fr;q=0.9",
+        },
+      }),
+    );
+    if (!res.ok) return null;
+    const body = await res.text();
+
+    const featureAt = body.indexOf(MAPS_FEATURE_ID);
+    if (featureAt < 0) return null;
+
+    // …["254 avis",…],null,null,null,4.4,254]… juste avant l'identifiant de la fiche
+    const pattern = /\],null,null,null,([1-5](?:\.\d+)?),(\d+)[,\]]/g;
+    let best: RegExpExecArray | null = null;
+    for (let m = pattern.exec(body); m && m.index < featureAt; m = pattern.exec(body)) {
+      best = m;
+    }
+    if (!best || featureAt - best.index > 1000) return null;
+
+    const rating = Number(best[1]);
+    const totalCount = Number(best[2]);
+    if (!(rating >= 1 && rating <= 5) || !(totalCount > 0)) return null;
+
+    return {
+      rating,
+      totalCount,
+      mapsUrl: MAPS_URL,
+      fetchedAt: new Date().toISOString(),
+      source: "google-maps",
     };
   } catch {
     return null;
@@ -310,11 +360,14 @@ export async function getReviews(): Promise<ReviewsPayload> {
 }
 
 async function collectReviews(): Promise<ReviewsPayload> {
-  const [fromGoogle, meta, texts] = await Promise.all([
+  const [fromGoogle, mapsMeta, aggregatorMeta, texts] = await Promise.all([
     fetchFromGooglePlaces(),
+    fetchFromGoogleMapsPublic(),
     fetchFromAggregator(),
     fetchPublicReviewTexts(),
   ]);
+  // Google Maps (à jour) avant l'agrégateur (souvent en retard)
+  const meta = mapsMeta ?? aggregatorMeta;
 
   if (fromGoogle && fromGoogle.reviews.length > 0) {
     return {
@@ -342,9 +395,11 @@ async function collectReviews(): Promise<ReviewsPayload> {
       fetchedAt: new Date().toISOString(),
       source: fromGoogle
         ? "google-places"
-        : meta
-          ? "aggregator"
-          : "fallback",
+        : mapsMeta
+          ? "google-maps"
+          : aggregatorMeta
+            ? "aggregator"
+            : "fallback",
     };
   }
 

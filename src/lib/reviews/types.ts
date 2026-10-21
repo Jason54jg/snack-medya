@@ -15,5 +15,5 @@ export type ReviewsPayload = {
   reviews: LiveReview[];
   mapsUrl: string;
   fetchedAt: string;
-  source: "google-places" | "aggregator" | "fallback";
+  source: "google-places" | "google-maps" | "aggregator" | "fallback";
 };

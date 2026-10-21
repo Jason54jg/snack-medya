@@ -3,9 +3,9 @@ import type { ReviewsPayload } from "./types";
 /** Avis publics connus (sources agrégées) — utilisés si les APIs échouent */
 export const FALLBACK_REVIEWS: ReviewsPayload = {
   rating: 4.4,
-  totalCount: 246,
+  totalCount: 254,
   mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Snack+Medya+23+Avenue+Kennedy+Neufchateau",
+    "https://www.google.com/maps/search/?api=1&query=Snack+Medya+Neufch%C3%A2teau&query_place_id=ChIJJUEoD0Gz7EcRunIOtLfN6Sg",
   fetchedAt: new Date(0).toISOString(),
   source: "fallback",
   reviews: [
