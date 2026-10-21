@@ -17,7 +17,8 @@
     "headline": "Kebab, elevated",
     "sub": "Grilled meat, house sauces, generous combos — Avenue Kennedy, Neufchâteau.",
     "ctaCompose": "Build my meal",
-    "ctaMenu": "View the menu"
+    "ctaMenu": "View the menu",
+    "ctaUberEats": "Order on Uber Eats"
   },
   "featured": {
     "title": "Our bestsellers",
@@ -104,7 +105,8 @@
     "incomplete": "Add at least one item to the cart",
     "next": "Next",
     "back": "Back",
-    "none": "None"
+    "none": "None",
+    "uberEats": "Order on Uber Eats"
   },
   "contact": {
     "title": "Find us",
@@ -114,7 +116,8 @@
     "hours": "Opening hours",
     "closed": "Closed",
     "directions": "Directions",
-    "call": "Call now"
+    "call": "Call now",
+    "uberEats": "Order on Uber Eats"
   },
   "footer": {
     "tagline": "Snack Medya — kebab & snack in Neufchâteau",

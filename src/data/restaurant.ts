@@ -42,6 +42,9 @@ export const restaurant = {
     reviewsUrl:
       "https://www.google.com/maps/search/?api=1&query=Snack+Medya+23+Avenue+Kennedy+Neufchateau",
   },
+  /** Fiche Uber Eats du restaurant — boutons masqués tant que vide */
+  uberEatsUrl:
+    "https://www.ubereats.com/fr/store/snack-medya/6rlq2FKDVlqgi2GltUe-cw",
   placeId: "ChIJZ1r8tGJp5UcRoLdLrz8FSd0",
   geo: {
     lat: 48.3556,

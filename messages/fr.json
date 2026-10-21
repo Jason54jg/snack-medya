@@ -17,7 +17,8 @@
     "headline": "Le kebab, élevé au rang d'art",
     "sub": "Viande grillée, sauces maison, formules généreuses — Avenue Kennedy, Neufchâteau.",
     "ctaCompose": "Composer mon menu",
-    "ctaMenu": "Voir la carte"
+    "ctaMenu": "Voir la carte",
+    "ctaUberEats": "Commander sur Uber Eats"
   },
   "featured": {
     "title": "Nos best-sellers",
@@ -104,7 +105,8 @@
     "incomplete": "Ajoutez au moins un article au panier",
     "next": "Suivant",
     "back": "Retour",
-    "none": "Aucun"
+    "none": "Aucun",
+    "uberEats": "Commander sur Uber Eats"
   },
   "contact": {
     "title": "Nous trouver",
@@ -114,7 +116,8 @@
     "hours": "Horaires",
     "closed": "Fermé",
     "directions": "Itinéraire",
-    "call": "Appeler maintenant"
+    "call": "Appeler maintenant",
+    "uberEats": "Commander sur Uber Eats"
   },
   "footer": {
     "tagline": "Snack Medya — kebab & snack à Neufchâteau",

@@ -34,6 +34,16 @@ export async function ContactSection() {
             >
               {t("directions")}
             </a>
+            {restaurant.uberEatsUrl && (
+              <a
+                href={restaurant.uberEatsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-bordeaux/30 px-5 py-2.5 text-sm font-semibold text-bordeaux hover:bg-cream-dark"
+              >
+                {t("uberEats")}
+              </a>
+            )}
           </div>
         </div>
       </div>

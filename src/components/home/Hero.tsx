@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { HERO_IMAGE } from "@/data/menu";
+import { restaurant } from "@/data/restaurant";
 import { OpenNowBadge } from "@/components/ui/OpenNowBadge";
 
 export async function Hero() {
@@ -52,6 +53,16 @@ export async function Hero() {
           >
             {t("ctaMenu")}
           </a>
+          {restaurant.uberEatsUrl && (
+            <a
+              href={restaurant.uberEatsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-cream/40 bg-cream/10 px-6 py-3 text-sm font-semibold text-cream backdrop-blur-sm transition hover:bg-cream/20"
+            >
+              {t("ctaUberEats")}
+            </a>
+          )}
         </div>
       </div>
     </div>

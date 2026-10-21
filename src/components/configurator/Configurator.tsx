@@ -575,6 +575,16 @@ export function Configurator() {
                 {t("incomplete")}
               </p>
             )}
+            {restaurant.uberEatsUrl && (
+              <a
+                href={restaurant.uberEatsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-cream/40 px-4 py-3 text-center text-sm font-semibold text-cream transition hover:bg-cream/10"
+              >
+                {t("uberEats")}
+              </a>
+            )}
           </div>
         </div>
       </aside>
