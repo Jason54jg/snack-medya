@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Snack Medya — Kebab & Snack à Neufchâteau",
-    "description": "Snack Medya à Neufchâteau : kebabs, tacos, burgers, assiettes. Composez votre menu en ligne et commandez par téléphone ou WhatsApp.",
+    "description": "Snack Medya à Neufchâteau : kebabs, tacos, burgers, assiettes. Composez votre menu en ligne et commandez par téléphone ou sur Uber Eats.",
     "keywords": "kebab, Neufchâteau, snack, tacos, Medya Kebab"
   },
   "nav": {
@@ -53,7 +53,7 @@
   },
   "configurator": {
     "title": "La carte & commande",
-    "subtitle": "Composez vos articles un par un, ajoutez-les au panier, puis voyez le prix final avant d’appeler ou d’envoyer sur WhatsApp.",
+    "subtitle": "Composez vos articles un par un, ajoutez-les au panier, puis voyez le prix final avant d’appeler.",
     "steps": {
       "category": "Catégorie",
       "product": "Produit",
@@ -101,7 +101,6 @@
     "finalTotal": "Prix final",
     "reset": "Recommencer l’article",
     "call": "Appeler",
-    "whatsapp": "Commander sur WhatsApp",
     "incomplete": "Ajoutez au moins un article au panier",
     "next": "Suivant",
     "back": "Retour",

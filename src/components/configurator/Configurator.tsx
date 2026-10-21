@@ -21,7 +21,6 @@ import {
 } from "@/data/menu";
 import { restaurant } from "@/data/restaurant";
 import { calculateTotal } from "@/lib/pricing";
-import { whatsappCartUrl } from "@/lib/orderMessage";
 import { cartItemLabel, snapshotConfig } from "@/lib/cartLabel";
 import {
   useConfiguratorStore,
@@ -552,23 +551,6 @@ export function Configurator() {
               }`}
             >
               {t("call")} · {restaurant.phone.display}
-            </a>
-            <a
-              href={
-                cartLines.length
-                  ? whatsappCartUrl(cartLines, locale)
-                  : undefined
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`rounded-full px-4 py-3 text-center text-sm font-semibold transition ${
-                cartLines.length
-                  ? "bg-green-soft text-ink hover:brightness-110"
-                  : "pointer-events-none bg-cream/20 text-cream/50"
-              }`}
-              aria-disabled={!cartLines.length}
-            >
-              {t("whatsapp")}
             </a>
             {!cartLines.length && (
               <p className="text-center text-xs text-cream/60">

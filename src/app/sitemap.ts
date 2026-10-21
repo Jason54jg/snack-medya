@@ -15,10 +15,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routing.locales.map((locale) => ({
     url: `${BASE}/${locale}`,
     lastModified: new Date(),
-    alternates: {
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `${BASE}/${l}`]),
-      ),
-    },
   }));
 }

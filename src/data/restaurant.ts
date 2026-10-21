@@ -11,7 +11,6 @@ export const restaurant = {
   phone: {
     display: "03 29 94 30 38",
     tel: "+33329943038",
-    whatsapp: "33329943038",
   },
   hours: [
     {

@@ -28,7 +28,7 @@ Ouvrir [http://localhost:3000](http://localhost:3000) (redirige vers `/fr`).
 
 - Hero kebab + catalogue officiel fidèle aux menus papier
 - Configurateur multi-étapes avec prix en temps réel
-- Commande via téléphone ou WhatsApp (récap pré-rempli)
+- Commande par téléphone ou sur Uber Eats
 - Avis clients (curation statique)
 - Contact, horaires, carte Google Maps embed
 

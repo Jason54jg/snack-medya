@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { restaurant } from "@/data/restaurant";
 import { OpenNowBadge } from "@/components/ui/OpenNowBadge";
 
@@ -15,12 +14,8 @@ const SECTIONS = [
 
 export function Header() {
   const t = useTranslations("nav");
-  const locale = useLocale();
-  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("accueil");
-
-  const otherLocale = locale === "fr" ? "en" : "fr";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -87,14 +82,6 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            href={pathname}
-            locale={otherLocale}
-            className="rounded-full border border-bordeaux/20 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-bordeaux transition hover:bg-bordeaux hover:text-cream"
-            aria-label={otherLocale === "fr" ? "Français" : "English"}
-          >
-            {otherLocale}
-          </Link>
           <a
             href={`tel:${restaurant.phone.tel}`}
             className="hidden rounded-full bg-bordeaux px-3 py-1.5 text-sm font-medium text-cream transition hover:bg-bordeaux-light sm:inline-flex"

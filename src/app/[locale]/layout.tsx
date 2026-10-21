@@ -43,16 +43,10 @@ export async function generateMetadata({ params }: Props) {
     title: t("title"),
     description: t("description"),
     keywords: t("keywords"),
-    alternates: {
-      languages: {
-        fr: "/fr",
-        en: "/en",
-      },
-    },
     openGraph: {
       title: t("title"),
       description: t("description"),
-      locale: locale === "fr" ? "fr_FR" : "en_GB",
+      locale: "fr_FR",
       type: "website",
     },
   };
