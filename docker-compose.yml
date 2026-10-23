@@ -1,0 +1,18 @@
+services:
+  web:
+    build: .
+    image: snack-medya:latest
+    container_name: snack-medya
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      # Optionnel : avis via Google Places API (sinon fallback public)
+      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+    mem_limit: 384m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -1,0 +1,13 @@
+.git
+.github
+.next
+.pages-bak
+node_modules
+out
+npm-debug.log*
+.env*
+*.tsbuildinfo
+next-env.d.ts
+Dockerfile
+docker-compose.yml
+README.md
