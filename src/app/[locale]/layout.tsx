@@ -8,6 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 import { RestaurantJsonLd } from "@/components/seo/JsonLd";
 import { InitialSplash } from "@/components/ui/InitialSplash";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { Analytics } from "@/components/ui/Analytics";
 import "../globals.css";
 
 const fraunces = Fraunces({
@@ -70,6 +71,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       >
         <NextIntlClientProvider messages={messages}>
           <RestaurantJsonLd />
+          <Analytics />
           <InitialSplash />
           <a
             href="#menu"

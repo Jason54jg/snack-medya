@@ -11,6 +11,7 @@ export async function HoursCard() {
       <p className="mt-2 text-sm text-cream/85">{restaurant.address.full}</p>
       <a
         href={`tel:${restaurant.phone.tel}`}
+        data-track="call"
         className="mt-3 inline-block text-lg font-semibold underline-offset-2 hover:underline"
       >
         {restaurant.phone.display}

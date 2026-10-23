@@ -84,6 +84,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <a
             href={`tel:${restaurant.phone.tel}`}
+            data-track="call"
             className="hidden rounded-full bg-bordeaux px-3 py-1.5 text-sm font-medium text-cream transition hover:bg-bordeaux-light sm:inline-flex"
           >
             {t("order")}
@@ -134,6 +135,7 @@ export function Header() {
             <li>
               <a
                 href={`tel:${restaurant.phone.tel}`}
+                data-track="call"
                 className="mt-1 block rounded-lg bg-bordeaux px-3 py-2 text-center text-sm font-medium text-cream"
               >
                 {restaurant.phone.display}

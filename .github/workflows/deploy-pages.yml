@@ -37,6 +37,7 @@ jobs:
         run: npm run build:pages
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
+          NEXT_PUBLIC_ANALYTICS_URL: https://webdashbord-one.vercel.app
           # Optionnel : note, nombre et dates des avis en direct (Places API)
           GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
 

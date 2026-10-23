@@ -22,12 +22,14 @@ export async function ContactSection() {
           <div className="flex flex-wrap gap-3">
             <a
               href={`tel:${restaurant.phone.tel}`}
+              data-track="call"
               className="rounded-full bg-bordeaux px-5 py-2.5 text-sm font-semibold text-cream hover:bg-bordeaux-light"
             >
               {t("call")}
             </a>
             <a
               href={restaurant.maps.directionsUrl}
+              data-track="directions"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full border border-bordeaux/30 px-5 py-2.5 text-sm font-semibold text-bordeaux hover:bg-cream-dark"
@@ -37,6 +39,7 @@ export async function ContactSection() {
             {restaurant.uberEatsUrl && (
               <a
                 href={restaurant.uberEatsUrl}
+                data-track="uber-eats"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full border border-bordeaux/30 px-5 py-2.5 text-sm font-semibold text-bordeaux hover:bg-cream-dark"

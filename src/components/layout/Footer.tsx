@@ -28,6 +28,7 @@ export async function Footer() {
           <p className="mt-2 text-sm">{restaurant.address.full}</p>
           <a
             href={`tel:${restaurant.phone.tel}`}
+            data-track="call"
             className="mt-1 inline-block text-sm font-medium text-cream underline-offset-2 hover:underline"
           >
             {restaurant.phone.display}

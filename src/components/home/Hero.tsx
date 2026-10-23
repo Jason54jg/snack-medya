@@ -56,6 +56,7 @@ export async function Hero() {
           {restaurant.uberEatsUrl && (
             <a
               href={restaurant.uberEatsUrl}
+              data-track="uber-eats"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full border border-cream/40 bg-cream/10 px-6 py-3 text-sm font-semibold text-cream backdrop-blur-sm transition hover:bg-cream/20"

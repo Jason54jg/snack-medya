@@ -458,6 +458,11 @@ export function Configurator() {
             type="button"
             disabled={!complete}
             onClick={addToCart}
+            data-track={
+              complete
+                ? `add-to-cart:${store.productId ?? store.mode}`
+                : undefined
+            }
             className={`mt-4 w-full rounded-full px-4 py-3 text-sm font-semibold transition ${
               complete
                 ? "bg-bordeaux text-cream hover:bg-bordeaux-light"
@@ -544,6 +549,7 @@ export function Configurator() {
           <div className="mt-5 flex flex-col gap-2">
             <a
               href={`tel:${restaurant.phone.tel}`}
+              data-track="call"
               className={`rounded-full px-4 py-3 text-center text-sm font-semibold transition ${
                 cartLines.length
                   ? "bg-cream text-bordeaux hover:bg-white"
@@ -560,6 +566,7 @@ export function Configurator() {
             {restaurant.uberEatsUrl && (
               <a
                 href={restaurant.uberEatsUrl}
+                data-track="uber-eats"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full border border-cream/40 px-4 py-3 text-center text-sm font-semibold text-cream transition hover:bg-cream/10"

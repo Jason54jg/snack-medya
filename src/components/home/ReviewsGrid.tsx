@@ -86,6 +86,7 @@ export function ReviewsGrid({ initialData }: Props) {
 
         <a
           href={data.mapsUrl}
+          data-track="google-reviews"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-8 inline-flex rounded-full border border-bordeaux/25 bg-white/70 px-5 py-2.5 text-sm font-semibold text-bordeaux transition hover:bg-bordeaux hover:text-cream"
