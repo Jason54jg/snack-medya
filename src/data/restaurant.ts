@@ -14,6 +14,13 @@ export const restaurant = {
   },
   hours: [
     {
+      id: "mon",
+      daysFr: "Lundi",
+      daysEn: "Monday",
+      slots: [],
+      closed: true,
+    },
+    {
       id: "tue-sat",
       daysFr: "Mardi – Samedi",
       daysEn: "Tuesday – Saturday",
@@ -24,13 +31,6 @@ export const restaurant = {
       daysFr: "Dimanche",
       daysEn: "Sunday",
       slots: ["17h00 – 22h00"],
-    },
-    {
-      id: "mon",
-      daysFr: "Lundi",
-      daysEn: "Monday",
-      slots: [],
-      closed: true,
     },
   ],
   maps: {
