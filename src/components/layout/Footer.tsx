@@ -49,7 +49,15 @@ export async function Footer() {
         </div>
       </div>
       <div className="border-t border-cream/10 py-4 text-center text-xs text-cream/50">
-        © {year} Snack Medya. {t("rights")}
+        © {year} Snack Medya. {t("rights")} · {t("madeBy")}{" "}
+        <a
+          href="https://github.com/Jason54jg"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-cream/75 underline-offset-2 hover:text-cream hover:underline"
+        >
+          Jason
+        </a>
       </div>
     </footer>
   );
