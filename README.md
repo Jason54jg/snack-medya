@@ -54,3 +54,17 @@ Workflow : `.github/workflows/deploy-pages.yml`
 
 `npm run build:pages` génère `out/` en local.  
 La route `src/app/api/reviews` **n’est pas supprimée** : elle est seulement mise de côté pendant l’export statique, puis restaurée. Sur un hébergement Node (Vercel, etc.) elle fonctionne normalement.
+
+## Docker (VPS)
+
+Serveur Next.js complet : `/api/reviews` et la redirection `/` → `/fr` fonctionnent, contrairement à GitHub Pages.
+
+```bash
+docker compose up -d --build
+```
+
+Site sur [http://localhost:3000](http://localhost:3000) (port modifiable via `PORT=8080 docker compose up -d`).
+
+- Clé Google Places optionnelle : `GOOGLE_MAPS_API_KEY=... docker compose up -d` (ou dans un fichier `.env` à côté de `docker-compose.yml`)
+- Image ~280 Mo, ~40 Mo de RAM au repos, limitée à 384 Mo ; logs plafonnés à 30 Mo
+- Le build (`next build`) consomme ~1 Go de RAM : sur un VPS 2 Go, éviter de builder pendant un autre gros process

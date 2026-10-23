@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { restaurant } from "@/data/restaurant";
 import { OpenNowBadge } from "@/components/ui/OpenNowBadge";
+import { LogoMark } from "@/components/ui/LogoMark";
 
 const SECTIONS = [
   { id: "accueil", key: "home" },
@@ -55,8 +56,9 @@ export function Header() {
           <button
             type="button"
             onClick={() => scrollTo("accueil")}
-            className="group flex items-baseline gap-2 text-left"
+            className="group flex items-center gap-2 text-left"
           >
+            <LogoMark className="h-8 w-8 shrink-0 sm:h-9 sm:w-9" />
             <span className="font-display text-xl font-semibold tracking-tight text-bordeaux sm:text-2xl">
               Snack Medya
             </span>

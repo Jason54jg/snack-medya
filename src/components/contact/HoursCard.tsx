@@ -22,13 +22,21 @@ export async function HoursCard() {
         </p>
         <ul className="mt-3 space-y-2 text-sm">
           {restaurant.hours.map((h) => (
-            <li key={h.id} className="flex justify-between gap-4">
-              <span>{locale === "fr" ? h.daysFr : h.daysEn}</span>
-              <span className="text-right text-cream/90">
-                {"closed" in h && h.closed
-                  ? t("closed")
-                  : h.slots.join(" · ")}
+            <li key={h.id} className="flex items-start justify-between gap-4">
+              <span className="whitespace-nowrap">
+                {locale === "fr" ? h.daysFr : h.daysEn}
               </span>
+              {"closed" in h && h.closed ? (
+                <span className="text-cream/60">{t("closed")}</span>
+              ) : (
+                <span className="flex flex-col items-end text-cream/90">
+                  {h.slots.map((slot) => (
+                    <span key={slot} className="whitespace-nowrap">
+                      {slot}
+                    </span>
+                  ))}
+                </span>
+              )}
             </li>
           ))}
         </ul>

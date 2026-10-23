@@ -47,12 +47,6 @@ export async function Hero() {
           >
             {t("ctaCompose")}
           </a>
-          <a
-            href="#menu"
-            className="rounded-full border border-cream/40 bg-cream/10 px-6 py-3 text-sm font-semibold text-cream backdrop-blur-sm transition hover:bg-cream/20"
-          >
-            {t("ctaMenu")}
-          </a>
           {restaurant.uberEatsUrl && (
             <a
               href={restaurant.uberEatsUrl}

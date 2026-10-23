@@ -29,6 +29,13 @@ const nextConfig: NextConfig = {
         },
       }
     : {
+        // Bundle minimal pour l'image Docker (node server.js)
+        output: "standalone" as const,
+        // Node ≥ 20.19 résout @swc/helpers via la condition « module-sync » (esm/),
+        // que le traçage de fichiers ignore
+        outputFileTracingIncludes: {
+          "/*": ["./node_modules/@swc/helpers/esm/**/*"],
+        },
         images: {
           remotePatterns: [
             {
