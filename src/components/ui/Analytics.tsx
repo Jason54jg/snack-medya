@@ -36,16 +36,19 @@ function send(event: AnalyticsEvent) {
       lang: currentLang || undefined,
       ...event,
     });
-    const url = `${ANALYTICS_URL}/api/collect`;
+    // /api/send (pas /api/collect) : EasyPrivacy bloque /api/collect
+    const url = `${ANALYTICS_URL}/api/send`;
+    const blob = new Blob([body], { type: "text/plain" });
 
-    // text/plain : requête « simple », pas de preflight CORS
-    if (navigator.sendBeacon?.(url, body)) return;
+    // fetch d’abord : moins souvent bloqué que sendBeacon ($ping)
     fetch(url, {
       method: "POST",
-      body,
+      body: blob,
       keepalive: true,
       headers: { "Content-Type": "text/plain" },
-    }).catch(() => {});
+    }).catch(() => {
+      navigator.sendBeacon?.(url, blob);
+    });
   } catch {
     // L’analytics ne doit jamais casser le site
   }
