@@ -348,7 +348,7 @@ export function Configurator() {
 
         {/* Meat */}
         {((store.mode === "tacos" && store.formula) ||
-          (store.needsMeatChoice() &&
+          ((store.needsMeatChoice() || store.productId === "salade-maison") &&
             store.formula &&
             store.mode !== "enfant")) && (
           <section>
@@ -361,6 +361,11 @@ export function Configurator() {
                 : t("selectMeat")}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
+              {store.productId === "salade-maison" && (
+                <button type="button" className={chip(store.meats.length === 0)} onClick={() => store.setMeats([])} aria-pressed={store.meats.length === 0}>
+                  {locale === "fr" ? "Normale (sans viande)" : "Classic (without meat)"}
+                </button>
+              )}
               {(store.mode === "tacos"
                 ? MEATS
                 : store.productId === "panini"
