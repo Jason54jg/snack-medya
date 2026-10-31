@@ -1,5 +1,6 @@
 "use client";
 
+import { getAllowedExtras } from "@/lib/extras";
 import { create } from "zustand";
 import type { FormulaKey, MenuCategoryId } from "@/data/menu";
 import { TACO_SIZES } from "@/data/menu";
@@ -74,7 +75,11 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
       }),
 
     // Les viandes dépendent du produit (panini, salade…) : on repart de zéro
-    setProductId: (id) => set({ productId: id, meats: [] }),
+    setProductId: (id) => set((state) => ({
+      productId: id,
+      meats: [],
+      extras: state.extras.filter((extraId) => getAllowedExtras(state.mode, id).some((extra) => extra.id === extraId)),
+    })),
 
     selectFromCatalog: (mode, productId) =>
       set({
@@ -120,7 +125,8 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
     },
 
     toggleExtra: (id) => {
-      const { extras } = get();
+      const { extras, mode, productId } = get();
+      if (!getAllowedExtras(mode, productId).some((extra) => extra.id === id)) return;
       set({
         extras: extras.includes(id)
           ? extras.filter((e) => e !== id)
@@ -161,6 +167,8 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
 
     isComplete: () => {
       const s = get();
+      const allowed = getAllowedExtras(s.mode, s.productId);
+      if (s.extras.some((id) => !allowed.some((extra) => extra.id === id))) return false;
       if (s.mode === "enfant") {
         return Boolean(s.kidsTheme && s.kidsMeat);
       }
