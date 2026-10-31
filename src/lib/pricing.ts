@@ -33,7 +33,7 @@ export function calculateTotal(state: ConfiguratorState): number {
     return 0;
   }
 
-  const allowedExtras = getAllowedExtras(state.mode, state.productId);
+  const allowedExtras = getAllowedExtras(state.mode, state.productId, state.formula);
   const extraTotal = state.extras.reduce((sum, extraId) => {
     const extra = allowedExtras.find((e) => e.id === extraId);
     return sum + (extra?.price ?? 0);

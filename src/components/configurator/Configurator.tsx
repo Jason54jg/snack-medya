@@ -88,7 +88,7 @@ export function Configurator() {
   }, []);
 
   const total = calculateTotal(store);
-  const allowedExtras = getAllowedExtras(store.mode, store.productId);
+  const allowedExtras = getAllowedExtras(store.mode, store.productId, store.formula);
 
   const complete = store.isComplete();
   const maxMeats = store.maxMeats();
