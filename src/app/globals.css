@@ -4,8 +4,8 @@
   --bordeaux: #6b1e2a;
   --bordeaux-light: #8b2e3a;
   --bordeaux-dark: #4a1420;
-  --cream: #f3ecdd;
-  --cream-dark: #e5dbc8;
+  --cream: #eeeee5;
+  --cream-dark: #ddddd1;
   --ink: #1a1210;
   --ink-muted: #5c4f4a;
   --green: #4a7c59;
@@ -70,7 +70,7 @@ body {
   background-repeat: repeat;
   background-position: 0 0;
   /* Losanges à leur taille native : le motif reste carré sur tout écran. */
-  background-size: 96px 96px;
+  background-size: 176px 176px;
   color: var(--foreground);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
 }
