@@ -1,10 +1,10 @@
 import {
-  EXTRAS,
   MENU_ENFANT,
   TACO_SIZES,
   getItemById,
   type FormulaKey,
 } from "@/data/menu";
+import { getAllowedExtras } from "@/lib/extras";
 import type { ConfiguratorState } from "@/lib/store/configurator";
 
 export function calculateTotal(state: ConfiguratorState): number {
@@ -33,8 +33,9 @@ export function calculateTotal(state: ConfiguratorState): number {
     return 0;
   }
 
+  const allowedExtras = getAllowedExtras(state.mode, state.productId);
   const extraTotal = state.extras.reduce((sum, extraId) => {
-    const extra = EXTRAS.find((e) => e.id === extraId);
+    const extra = allowedExtras.find((e) => e.id === extraId);
     return sum + (extra?.price ?? 0);
   }, 0);
 

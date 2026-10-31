@@ -8,7 +8,6 @@ import {
   BOWLS,
   BURGERS,
   DURUMS,
-  EXTRAS,
   MEATS,
   MENU_ENFANT,
   SALADES,
@@ -20,6 +19,7 @@ import {
   type FormulaKey,
 } from "@/data/menu";
 import { restaurant } from "@/data/restaurant";
+import { getAllowedExtras } from "@/lib/extras";
 import { calculateTotal } from "@/lib/pricing";
 import { cartItemLabel, snapshotConfig } from "@/lib/cartLabel";
 import {
@@ -56,21 +56,6 @@ function productsForMode(mode: ConfigMode) {
     default:
       return [];
   }
-}
-
-function extrasForMode(mode: ConfigMode) {
-  if (mode === "tacos") {
-    return EXTRAS.filter((e) => e.contexts.includes("tacos"));
-  }
-  if (mode === "bowls") {
-    return EXTRAS.filter(
-      (e) => e.contexts.includes("bowl") || e.id === "viande-bowl",
-    );
-  }
-  return EXTRAS.filter(
-    (e) =>
-      e.contexts.includes("sandwich") || e.contexts.includes("general"),
-  );
 }
 
 export function Configurator() {
@@ -427,7 +412,7 @@ export function Configurator() {
               {t("selectExtras")}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
-              {extrasForMode(store.mode).map((extra) => {
+              {getAllowedExtras(store.mode, store.productId).map((extra) => {
                 const selected = store.extras.includes(extra.id);
                 return (
                   <button
