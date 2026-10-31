@@ -167,7 +167,7 @@ export const EXTRAS: Extra[] = [
     id: "oeuf",
     nameFr: "Œuf",
     nameEn: "Egg",
-    price: 1,
+    price: 1.5,
     contexts: ["sandwich", "general"],
   },
   {
