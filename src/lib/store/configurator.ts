@@ -151,7 +151,6 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
       if (mode === "burgers") return false;
       if (
         productId === "panini" ||
-        productId === "salade-maison" ||
         productId === "americain"
       ) {
         return true;
