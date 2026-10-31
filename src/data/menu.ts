@@ -58,7 +58,7 @@ export type Extra = {
   nameFr: string;
   nameEn: string;
   price: number;
-  contexts: ("sandwich" | "tacos" | "bowl" | "general")[];
+  contexts: ("sandwich" | "tacos" | "bowl" | "lahmacun")[];
 };
 
 export type MenuCategoryId =
@@ -126,7 +126,7 @@ export const EXTRAS: Extra[] = [
     nameFr: "Viande",
     nameEn: "Meat",
     price: 3.5,
-    contexts: ["sandwich", "tacos", "general"],
+    contexts: ["sandwich", "tacos"],
   },
   {
     id: "viande-bowl",
@@ -140,7 +140,7 @@ export const EXTRAS: Extra[] = [
     nameFr: "Fêta",
     nameEn: "Feta",
     price: 1,
-    contexts: ["sandwich", "general"],
+    contexts: ["sandwich"],
   },
   {
     id: "feta-tacos",
@@ -154,21 +154,21 @@ export const EXTRAS: Extra[] = [
     nameFr: "Mozza",
     nameEn: "Mozzarella",
     price: 2,
-    contexts: ["sandwich", "tacos", "general"],
+    contexts: ["sandwich", "tacos"],
   },
   {
     id: "cheddar",
     nameFr: "Cheddar",
     nameEn: "Cheddar",
     price: 1,
-    contexts: ["sandwich", "tacos", "general"],
+    contexts: ["sandwich", "tacos"],
   },
   {
     id: "oeuf",
     nameFr: "Œuf",
     nameEn: "Egg",
-    price: 1,
-    contexts: ["sandwich", "general"],
+    price: 1.5,
+    contexts: ["sandwich"],
   },
   {
     id: "oeuf-tacos",
@@ -182,14 +182,14 @@ export const EXTRAS: Extra[] = [
     nameFr: "Frites",
     nameEn: "Fries",
     price: 2,
-    contexts: ["sandwich", "general"],
+    contexts: ["sandwich"],
   },
   {
     id: "lahmacun-viande",
     nameFr: "Viande (Lahmacun)",
     nameEn: "Meat (Lahmacun)",
     price: 1,
-    contexts: ["sandwich"],
+    contexts: ["lahmacun"],
   },
 ];
 

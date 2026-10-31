@@ -2,6 +2,69 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { loadTypescript } from "./load-supplements.mjs";
 
+test("chaque catégorie propose uniquement ses propres suppléments", () => {
+  const { getAllowedExtras } = loadTypescript("src/lib/extras.ts");
+  for (const [mode, productId, expected] of [
+    ["sandwiches", "kebab", ["viande", "feta", "mozza", "cheddar", "oeuf", "frites"]],
+    ["tacos", null, ["viande", "feta-tacos", "mozza", "cheddar", "oeuf-tacos"]],
+    ["bowls", "bowl-kebab", ["viande-bowl"]],
+    ["durums", "pizza-lahmacun", ["lahmacun-viande"]],
+    ["durums", "durum-kebab", []],
+    ["burgers", "burger-classique", []],
+    ["assiettes", "assiette-steak", []],
+    ["salades", "salade-maison", []],
+    ["enfant", null, []],
+    [null, null, []],
+  ]) {
+    assert.deepEqual(getAllowedExtras(mode, productId).map((extra) => extra.id), expected, mode);
+  }
+});
+
+test("les suppléments sandwichs ne sont ni sélectionnables ni facturés ailleurs", () => {
+  const { useConfiguratorStore } = loadTypescript("src/lib/store/configurator.ts");
+  const { calculateTotal } = loadTypescript("src/lib/pricing.ts");
+  for (const [mode, productId] of [
+    ["durums", "durum-kebab"],
+    ["burgers", "burger-classique"],
+    ["assiettes", "assiette-steak"],
+    ["salades", "salade-maison"],
+  ]) {
+    const store = useConfiguratorStore.getState();
+    store.setMode(mode);
+    store.setProductId(productId);
+    store.setFormula("simple");
+    const base = calculateTotal(useConfiguratorStore.getState());
+    assert.ok(base > 0);
+    for (const id of ["viande", "feta", "mozza", "cheddar", "oeuf", "frites"]) store.toggleExtra(id);
+    assert.deepEqual(useConfiguratorStore.getState().extras, [], mode);
+    const invalid = { ...useConfiguratorStore.getState(), extras: ["oeuf", "frites"] };
+    assert.equal(calculateTotal(invalid), base, mode);
+    useConfiguratorStore.setState({ extras: invalid.extras });
+    assert.equal(useConfiguratorStore.getState().isComplete(), false, mode);
+  }
+});
+
+test("l’œuf ajoute 1,50 € au total et son retrait restaure le prix de base", () => {
+  const { useConfiguratorStore } = loadTypescript("src/lib/store/configurator.ts");
+  const { calculateTotal } = loadTypescript("src/lib/pricing.ts");
+  for (const [mode, productId, extraId] of [
+    ["sandwiches", "kebab", "oeuf"],
+    ["tacos", null, "oeuf-tacos"],
+  ]) {
+    const store = useConfiguratorStore.getState();
+    store.setMode(mode);
+    if (productId) store.setProductId(productId);
+    else store.setTacoSize("S");
+    store.setFormula("simple");
+    const base = calculateTotal(useConfiguratorStore.getState());
+    assert.ok(base > 0);
+    store.toggleExtra(extraId);
+    assert.equal(calculateTotal(useConfiguratorStore.getState()), base + 1.5, mode);
+    store.toggleExtra(extraId);
+    assert.equal(calculateTotal(useConfiguratorStore.getState()), base, mode);
+  }
+});
+
 test("le supplément Lahmacun est limité à son produit", () => {
   const { getAllowedExtras } = loadTypescript("src/lib/extras.ts");
   assert.equal(getAllowedExtras("sandwiches", "kebab").some((extra) => extra.id === "lahmacun-viande"), false);
