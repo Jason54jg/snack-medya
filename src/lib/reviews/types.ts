@@ -14,6 +14,7 @@ export type ReviewsPayload = {
   totalCount: number;
   reviews: LiveReview[];
   mapsUrl: string;
-  fetchedAt: string;
+  fetchedAt: string | null;
+  attemptedAt?: string;
   source: "google-places" | "google-maps" | "aggregator" | "fallback";
 };
