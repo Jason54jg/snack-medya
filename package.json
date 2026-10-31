@@ -7,7 +7,8 @@
     "build": "next build --turbopack",
     "build:pages": "node scripts/build-pages.mjs",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "next": "15.5.28",
