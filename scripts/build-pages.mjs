@@ -1,78 +1,42 @@
-/**
- * Build GitHub Pages (export statique).
- * Met de côté temporairement /api et middleware (incompatibles avec output:export)
- * sans les retirer du dépôt — l’hébergement Pages est temporaire.
- */
-import { execSync } from "node:child_process";
+/** Export Pages : déplacement réversible des routes serveur, sans copie/suppression. */
+import { spawnSync } from "node:child_process";
+import { createRequire } from "node:module";
 import fs from "node:fs";
 import path from "node:path";
-
-const root = process.cwd();
-const bakRoot = path.join(root, ".pages-bak");
-
-const items = [
-  {
-    from: path.join(root, "src", "app", "api"),
-    to: path.join(bakRoot, "api"),
-  },
-  {
-    from: path.join(root, "src", "middleware.ts"),
-    to: path.join(bakRoot, "middleware.ts"),
-  },
-  // Redirections client (utilisent next-intl/headers) — hors export Pages
-  {
-    from: path.join(root, "src", "app", "[locale]", "menu"),
-    to: path.join(bakRoot, "menu"),
-  },
-  {
-    from: path.join(root, "src", "app", "[locale]", "contact"),
-    to: path.join(bakRoot, "contact"),
-  },
-  {
-    from: path.join(root, "src", "app", "[locale]", "configurateur"),
-    to: path.join(bakRoot, "configurateur"),
-  },
-];
-
-function stash(from, to) {
-  if (!fs.existsSync(from)) return false;
-  fs.mkdirSync(path.dirname(to), { recursive: true });
-  if (fs.existsSync(to)) fs.rmSync(to, { recursive: true, force: true });
-  fs.cpSync(from, to, { recursive: true });
-  fs.rmSync(from, { recursive: true, force: true });
-  return true;
+import { fileURLToPath } from "node:url";
+const require = createRequire(import.meta.url);
+const root = fileURLToPath(new URL("../", import.meta.url));
+const backup = path.join(root, ".pages-bak");
+const paths = ["src/app/api", "src/middleware.ts", "src/app/[locale]/menu", "src/app/[locale]/contact", "src/app/[locale]/configurateur"];
+if (fs.existsSync(backup)) {
+  throw new Error("Une sauvegarde .pages-bak existe déjà. Restaurer ses sources avant de relancer le build ; aucun fichier ne sera écrasé.");
 }
-
-function restore(from, to) {
-  if (!fs.existsSync(from)) return;
-  fs.mkdirSync(path.dirname(to), { recursive: true });
-  if (fs.existsSync(to)) fs.rmSync(to, { recursive: true, force: true });
-  fs.cpSync(from, to, { recursive: true });
-  fs.rmSync(from, { recursive: true, force: true });
-}
-
-fs.mkdirSync(bakRoot, { recursive: true });
-const stashed = [];
-
+// Un précédent build serveur peut laisser des routes incompatibles dans les artefacts.
+fs.rmSync(path.join(root, ".next"), { recursive: true, force: true });
+fs.mkdirSync(backup);
+const moved = [];
+let status = 1;
 try {
-  for (const item of items) {
-    if (stash(item.from, item.to)) stashed.push(item);
+  for (const [index, relative] of paths.entries()) {
+    const from = path.join(root, relative);
+    if (!fs.existsSync(from)) continue;
+    const to = path.join(backup, String(index));
+    fs.renameSync(from, to);
+    moved.push({ from, to });
   }
-
-  execSync("npx next build", {
+  const result = spawnSync(process.execPath, [require.resolve("next/dist/bin/next"), "build"], {
+    cwd: root,
     stdio: "inherit",
-    env: {
-      ...process.env,
-      GITHUB_PAGES: "true",
-      GITHUB_REPOSITORY:
-        process.env.GITHUB_REPOSITORY ?? "Jason54jg/snack-medya",
-    },
+    env: { ...process.env, GITHUB_PAGES: "true", GITHUB_REPOSITORY: process.env.GITHUB_REPOSITORY ?? "Jason54jg/snack-medya" },
   });
+  if (result.error) throw result.error;
+  status = result.status ?? 1;
 } finally {
-  for (const item of stashed.reverse()) {
-    restore(item.to, item.from);
+  for (const { from, to } of moved.reverse()) {
+    if (fs.existsSync(from)) throw new Error(`Restauration interrompue pour ne pas écraser ${from}. La sauvegarde reste dans ${backup}.`);
+    fs.renameSync(to, from);
   }
-  if (fs.existsSync(bakRoot)) {
-    fs.rmSync(bakRoot, { recursive: true, force: true });
-  }
+  // Ne retirer que le dossier vide : une sauvegarde non restaurée reste intacte.
+  fs.rmdirSync(backup);
 }
+process.exitCode = status;

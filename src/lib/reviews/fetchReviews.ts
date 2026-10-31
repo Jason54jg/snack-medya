@@ -361,6 +361,7 @@ export async function getReviews(): Promise<ReviewsPayload> {
 }
 
 async function collectReviews(): Promise<ReviewsPayload> {
+  if (process.env.SKIP_LIVE_REVIEWS === "1") return FALLBACK_REVIEWS;
   const [fromGoogle, mapsMeta, aggregatorMeta, texts] = await Promise.all([
     fetchFromGooglePlaces(),
     fetchFromGoogleMapsPublic(),
