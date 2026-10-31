@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <!-- Papier crème et quadrillage fin inspirés de la carte Medya Kebab. -->
+  <defs>
+    <radialGradient id="paper">
+      <stop stop-color="#fffaf0" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#fffaf0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <path fill="url(#paper)" d="M0 0h96v96H0z"/>
+  <g fill="none" stroke="#a4967f" stroke-width=".7">
+    <path opacity=".38" d="M48 0 96 48 48 96 0 48Z"/>
+    <path opacity=".16" d="m-4 48 52-52 52 52-52 52Z"/>
+  </g>
+  <g fill="#7b2632" opacity=".18">
+    <path d="m48 0 1.5 1.5L48 3l-1.5-1.5ZM48 93l1.5 1.5L48 96l-1.5-1.5ZM0 46.5 1.5 48 0 49.5ZM96 46.5 94.5 48 96 49.5Z"/>
+  </g>
+</svg>

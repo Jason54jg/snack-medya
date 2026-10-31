@@ -25,7 +25,7 @@ const dmSans = DM_Sans({
 const isGithubPages = process.env.GITHUB_PAGES === "true";
 const repo = process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "snack-medya";
 const basePath = isGithubPages ? `/${repo}` : "";
-const bgPattern = `url("${basePath}/images/bg-pattern.png")`;
+const bgPattern = `url("${basePath}/images/menu-paper.svg")`;
 
 type Props = {
   children: React.ReactNode;
