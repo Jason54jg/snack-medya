@@ -88,6 +88,7 @@ export function Configurator() {
   }, []);
 
   const total = calculateTotal(store);
+  const allowedExtras = getAllowedExtras(store.mode, store.productId);
 
   const complete = store.isComplete();
   const maxMeats = store.maxMeats();
@@ -403,7 +404,7 @@ export function Configurator() {
         )}
 
         {/* Extras */}
-        {store.formula && store.mode && store.mode !== "enfant" && (
+        {store.formula && allowedExtras.length > 0 && (
           <section>
             <h2 className="font-display text-xl font-semibold text-bordeaux">
               6. {t("steps.extras")}
@@ -412,7 +413,7 @@ export function Configurator() {
               {t("selectExtras")}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
-              {getAllowedExtras(store.mode, store.productId).map((extra) => {
+              {allowedExtras.map((extra) => {
                 const selected = store.extras.includes(extra.id);
                 return (
                   <button
