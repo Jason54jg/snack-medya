@@ -355,6 +355,7 @@ export async function getReviews(): Promise<ReviewsPayload> {
   const top = pickTopRecent(payload.reviews);
   return {
     ...payload,
+    attemptedAt: new Date().toISOString(),
     reviews: top.length ? top : pickTopRecent(FALLBACK_REVIEWS.reviews),
   };
 }
@@ -392,7 +393,7 @@ async function collectReviews(): Promise<ReviewsPayload> {
           ? fromGoogle.reviews
           : FALLBACK_REVIEWS.reviews,
       mapsUrl: fromGoogle?.mapsUrl ?? MAPS_URL,
-      fetchedAt: new Date().toISOString(),
+      fetchedAt: fromGoogle?.fetchedAt ?? meta?.fetchedAt ?? null,
       source: fromGoogle
         ? "google-places"
         : mapsMeta
@@ -405,6 +406,5 @@ async function collectReviews(): Promise<ReviewsPayload> {
 
   return {
     ...FALLBACK_REVIEWS,
-    fetchedAt: new Date().toISOString(),
   };
 }

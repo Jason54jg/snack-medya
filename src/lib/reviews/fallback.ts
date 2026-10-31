@@ -6,7 +6,7 @@ export const FALLBACK_REVIEWS: ReviewsPayload = {
   totalCount: 254,
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Snack+Medya+Neufch%C3%A2teau&query_place_id=ChIJJUEoD0Gz7EcRunIOtLfN6Sg",
-  fetchedAt: new Date(0).toISOString(),
+  fetchedAt: null,
   source: "fallback",
   reviews: [
     {
