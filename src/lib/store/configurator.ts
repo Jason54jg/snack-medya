@@ -78,7 +78,7 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
     setProductId: (id) => set((state) => ({
       productId: id,
       meats: [],
-      extras: state.extras.filter((extraId) => getAllowedExtras(state.mode, id).some((extra) => extra.id === extraId)),
+      extras: state.extras.filter((extraId) => getAllowedExtras(state.mode, id, state.formula).some((extra) => extra.id === extraId)),
     })),
 
     selectFromCatalog: (mode, productId) =>
@@ -89,7 +89,12 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
         step: 2,
       }),
 
-    setFormula: (formula) => set({ formula }),
+    setFormula: (formula) => set((state) => ({
+      formula,
+      extras: state.extras.filter((extraId) =>
+        getAllowedExtras(state.mode, state.productId, formula).some((extra) => extra.id === extraId)
+      ),
+    })),
 
     setTacoSize: (size) =>
       set({
@@ -125,8 +130,8 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
     },
 
     toggleExtra: (id) => {
-      const { extras, mode, productId } = get();
-      if (!getAllowedExtras(mode, productId).some((extra) => extra.id === id)) return;
+      const { extras, mode, productId, formula } = get();
+      if (!getAllowedExtras(mode, productId, formula).some((extra) => extra.id === id)) return;
       set({
         extras: extras.includes(id)
           ? extras.filter((e) => e !== id)
@@ -166,7 +171,7 @@ export const useConfiguratorStore = create<ConfiguratorState & Actions>(
 
     isComplete: () => {
       const s = get();
-      const allowed = getAllowedExtras(s.mode, s.productId);
+      const allowed = getAllowedExtras(s.mode, s.productId, s.formula);
       if (s.extras.some((id) => !allowed.some((extra) => extra.id === id))) return false;
       if (s.mode === "enfant") {
         return Boolean(s.kidsTheme && s.kidsMeat);

@@ -58,7 +58,8 @@ export type Extra = {
   nameFr: string;
   nameEn: string;
   price: number;
-  contexts: ("sandwich" | "tacos" | "bowl" | "lahmacun")[];
+  contexts: ("sandwich" | "tacos" | "bowl" | "lahmacun" | "durum")[];
+  formulas?: FormulaKey[];
 };
 
 export type MenuCategoryId =
@@ -183,6 +184,14 @@ export const EXTRAS: Extra[] = [
     nameEn: "Fries",
     price: 2,
     contexts: ["sandwich"],
+  },
+  {
+    id: "frites-durum",
+    nameFr: "Frites",
+    nameEn: "Fries",
+    price: 1.5,
+    contexts: ["durum"],
+    formulas: ["simple"],
   },
   {
     id: "lahmacun-viande",
